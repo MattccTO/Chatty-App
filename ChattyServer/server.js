@@ -22,12 +22,17 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
-  ws.on('message', (incomingMsg) => {
-    const messageObject = JSON.parse(incomingMsg);
-    messageObject.id = uuidv1();
+  ws.on('message', (incomingData) => {
+    const postObject = JSON.parse(incomingData);
+    postObject.id = uuidv1();
+    if (postObject.type === 'postMessage') {
+      postObject.type = 'incomingMessage';
+    } else if (postObject.type === 'postNotification') {
+      postObject.type = 'incomingNotification';
+    }
     wss.clients.forEach(function each(client) {
       if (client.readyState === client.OPEN) {
-        client.send(JSON.stringify(messageObject));
+        client.send(JSON.stringify(postObject));
       }
     });
   });

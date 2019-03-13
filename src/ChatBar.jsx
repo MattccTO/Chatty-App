@@ -11,7 +11,10 @@ export default class ChatBar extends Component {
 
   submitUser = (event) => {
     if (event.keyCode == 13) {
-      const user = event.target.value;
+      const user = {
+        content: `${this.props.currentUser} has changed their name to ${event.target.value}`,
+        username: event.target.value
+      };
       this.props.chgUser(user);
     }
   }

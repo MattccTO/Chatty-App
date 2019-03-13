@@ -13,12 +13,15 @@ export default class App extends Component {
   }
 
   changeUser = (user) => {
-    this.setState({ currentUser: user });
+    const userNotification = user;
+    userNotification.type = 'postNotification';
+    this.setState({ currentUser: user.username });
+    this.socket.send(JSON.stringify(userNotification));
   }
 
   addNewMessage = (message, user) => {
     const newMessage = {
-      type: 'incomingMessage',
+      type: 'postMessage',
       username: user,
       content: message
     };
@@ -34,6 +37,7 @@ export default class App extends Component {
 
     this.socket.addEventListener('message', (event) => {
       const newMessage = JSON.parse(event.data);
+      console.log(newMessage);
       const oldMessage = this.state.message;
       this.setState({ message: [...oldMessage, newMessage] });
     });
