@@ -12,10 +12,14 @@ export default class App extends Component {
     };
   }
 
-  addNewMessage = (message) => {
+  changeUser = (user) => {
+    this.setState({ currentUser: user });
+  }
+
+  addNewMessage = (message, user) => {
     const newMessage = {
       type: 'incomingMessage',
-      username: this.state.currentUser,
+      username: user,
       content: message
     };
     this.socket.send(JSON.stringify(newMessage));
@@ -39,7 +43,7 @@ export default class App extends Component {
     return (
       <div className='container'>
         <MessageList message={this.state.message} />
-        <ChatBar currentUser={this.state.currentUser} addMsg={this.addNewMessage} />
+        <ChatBar currentUser={this.state.currentUser} addMsg={this.addNewMessage} chgUser={this.changeUser} />
       </div>
     );
   }
