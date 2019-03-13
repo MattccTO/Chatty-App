@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-import messagesStatic from './MessageStaticData.jsx';
+import NavBar from './NavBar.jsx';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: 'Dev',
-      message: []
+      currentUser: 'Bub',
+      message: [],
+      userCount: 0
     };
   }
 
@@ -38,14 +39,19 @@ export default class App extends Component {
     this.socket.addEventListener('message', (event) => {
       const newMessage = JSON.parse(event.data);
       console.log(newMessage);
-      const oldMessage = this.state.message;
-      this.setState({ message: [...oldMessage, newMessage] });
+      if (newMessage.type === 'userCountChanged') {
+        this.setState({ userCount: newMessage.userCount })
+      } else {
+        const oldMessage = this.state.message;
+        this.setState({ message: [...oldMessage, newMessage] });
+      }
     });
   }
 
   render() {
     return (
       <div className='container'>
+        <NavBar userCount={this.state.userCount} />
         <MessageList message={this.state.message} />
         <ChatBar currentUser={this.state.currentUser} addMsg={this.addNewMessage} chgUser={this.changeUser} />
       </div>
