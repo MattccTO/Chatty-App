@@ -1,41 +1,48 @@
-React Boilerplate
+Chatty-App
 =====================
 
-A minimal and light dev environment for ReactJS.
+Chatty is a primarily client-side single page chat app built with ReactJS.
 
-### Usage
+### Setup
 
-Clone the boilerplate and create your own git repo.
+Clone the project and install the dependencies for both the root project and and the server.
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
-
-Install the dependencies and start the server.
-
+In the root project folder, install dependencies and start the Webpack-Dev-Server:
 ```
 npm install
 npm start
-open http://localhost:3000
 ```
 
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
+In the ./ChattyServer folder, install dependencies and start the Web Socket Server:
 ```
-npm run lint
+npm install
+npm start ws
 ```
+
+### Usage/Functionality
+
+Access Chatty app by opening a web browser and navigating to localhost:3000/.
+
+On loading the chat app, users are given the default username ('Bub') and randomly assigned a colour which is applied to their username in the chat window. This colour will remain consistent to the user if they change their name.
+
+Users can change their username by updating the bottom left field and pressing 'ENTER'. A notification will be broadcast to all users announcing the updated name.
+
+Pic Here.
+
+Users can submit messages by entering text in the message field and pressing 'ENTER'. Submitted messages are automatically broadcast to all users, and their pages will be updated in real time.
+
+Pic Here.
+
+Users can submit images by including a valid URL in their text message.
+
+Pics Here
+
+Users can submit gifs in the same way.
+
+Gif here.
+
+The app also keeps a count of live users in the upper right. The counter is automatically updated for all users whenever someone joins of leaves the chat app.
+
 
 ### Dependencies
 
@@ -43,3 +50,8 @@ npm run lint
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* [node-sass](https://github.com/sass/node-sass)
+* [express](https://expressjs.com/)
+* [uuid](https://www.npmjs.com/package/uuid)
+* [ws](https://www.npmjs.com/package/ws)
+
