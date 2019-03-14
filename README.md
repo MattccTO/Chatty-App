@@ -27,19 +27,20 @@ On loading the chat app, users are given the default username ('Bub') and random
 
 Users can change their username by updating the bottom left field and pressing 'ENTER'. A notification will be broadcast to all users announcing the updated name.
 
-Pic Here.
+!['Username Change'](https://github.com/MattccTO/Chatty-App/blob/master/Docs/Screenshot%20from%202019-03-14%2015-58-08.png?raw=true)
 
 Users can submit messages by entering text in the message field and pressing 'ENTER'. Submitted messages are automatically broadcast to all users, and their pages will be updated in real time.
 
-Pic Here.
+!['Multiple user messages'](https://github.com/MattccTO/Chatty-App/blob/master/Docs/Screenshot%20from%202019-03-14%2016-01-46.png?raw=true)
 
 Users can submit images by including a valid URL in their text message.
 
-Pics Here
+!['User input img'](https://github.com/MattccTO/Chatty-App/blob/master/Docs/Screenshot%20from%202019-03-14%2016-10-45.png?raw=true)
+!['User post img'](https://github.com/MattccTO/Chatty-App/blob/master/Docs/Screenshot%20from%202019-03-14%2016-11-39.png?raw=true)
 
 Users can submit gifs in the same way.
 
-Gif here.
+!['User post gif'](https://github.com/MattccTO/Chatty-App/blob/master/Docs/Chatty%20Swanson.gif?raw=true)
 
 The app also keeps a count of live users in the upper right. The counter is automatically updated for all users whenever someone joins of leaves the chat app.
 
