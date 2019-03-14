@@ -40,7 +40,6 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('message', (incomingData) => {
-    // console.log(ws.id);
     const postObject = JSON.parse(incomingData);
     postObject.id = uuidv1();
     if (postObject.type === 'postMessage') {

@@ -20,12 +20,9 @@ export default class App extends Component {
     this.socket.send(JSON.stringify(userNotification));
   }
 
-  addNewMessage = (message, user) => {
-    const newMessage = {
-      type: 'postMessage',
-      username: user,
-      content: message
-    };
+  addNewMessage = (message) => {
+    const newMessage = message;
+    newMessage.type = 'postMessage';
     this.socket.send(JSON.stringify(newMessage));
   };
 
@@ -38,7 +35,6 @@ export default class App extends Component {
 
     this.socket.addEventListener('message', (event) => {
       const newMessage = JSON.parse(event.data);
-      // console.log(newMessage);
       if (newMessage.type === 'userCountChanged') {
         this.setState({ userCount: newMessage.userCount })
       } else {
