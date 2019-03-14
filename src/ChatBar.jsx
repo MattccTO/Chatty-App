@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 export default class ChatBar extends Component {
+
+  // Handle user submitted message and send to root app.jsx
   submitMsg = (event) => {
     if (event.keyCode == 13) {
       const urlRegex = /http.*(jpg|png|gif)$/;
@@ -17,8 +19,9 @@ export default class ChatBar extends Component {
     }
   }
 
+  // Handle username change and send to root app.jsx
   submitUser = (event) => {
-    if (event.keyCode == 13) {
+    if (event.keyCode == 13 && event.target.value !== this.props.currentUser) {
       const user = {
         content: `${this.props.currentUser} has changed their name to ${event.target.value}`,
         username: event.target.value

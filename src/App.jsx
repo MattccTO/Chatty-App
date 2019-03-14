@@ -13,6 +13,7 @@ export default class App extends Component {
     };
   }
 
+  // Function to handle user name change
   changeUser = (user) => {
     const userNotification = user;
     userNotification.type = 'postNotification';
@@ -20,6 +21,7 @@ export default class App extends Component {
     this.socket.send(JSON.stringify(userNotification));
   }
 
+  // Function to handle a new user message
   addNewMessage = (message) => {
     const newMessage = message;
     newMessage.type = 'postMessage';
@@ -28,11 +30,11 @@ export default class App extends Component {
 
   componentDidMount() {
     this.socket = new WebSocket('ws:localhost:3001');
-
     this.socket.addEventListener('open', (event) => {
       console.log('Connected to server!');
     });
 
+    // Handle message broadcasts from web socket server
     this.socket.addEventListener('message', (event) => {
       const newMessage = JSON.parse(event.data);
       if (newMessage.type === 'userCountChanged') {

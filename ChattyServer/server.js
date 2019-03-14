@@ -28,17 +28,18 @@ wss.on('connection', (ws) => {
     colour: colours[Math.floor(Math.random()*4)]
     };
 
+  // Create & broadcast a message object with the current user count when a user joins
   const numUsersMsg = {
     type: 'userCountChanged',
     userCount: wss.clients.size
   }
-
   wss.clients.forEach(function each(client) {
     if (client.readyState === client.OPEN) {
       client.send(JSON.stringify(numUsersMsg));
     }
   });
 
+  // Handle incoming messages from React app and broadcast them out accordingly
   ws.on('message', (incomingData) => {
     const postObject = JSON.parse(incomingData);
     postObject.id = uuidv1();
@@ -59,6 +60,7 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     console.log('Client disconnected')
 
+    // Update and rebroadcast the user count when a user leaves
     numUsersMsg.userCount = wss.clients.size;
     wss.clients.forEach(function each(client) {
       if (client.readyState === client.OPEN) {
