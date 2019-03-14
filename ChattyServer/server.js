@@ -16,7 +16,6 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
-let userCount = 0;
 let id = 0;
 const colours = ['#097f09', '#4776b4', '#ff1493', '#ffa500'];
 // Set up a callback that will run when a client connects to the server
@@ -28,12 +27,10 @@ wss.on('connection', (ws) => {
     id: ++id,
     colour: colours[Math.floor(Math.random()*4)]
     };
-  // console.log(ws);
 
-  userCount++;
   const numUsersMsg = {
     type: 'userCountChanged',
-    userCount
+    userCount: wss.clients.size
   }
 
   wss.clients.forEach(function each(client) {
@@ -46,9 +43,9 @@ wss.on('connection', (ws) => {
     // console.log(ws.id);
     const postObject = JSON.parse(incomingData);
     postObject.id = uuidv1();
-    postObject.colour = { color: ws.user.colour };
     if (postObject.type === 'postMessage') {
       postObject.type = 'incomingMessage';
+      postObject.colour = { color: ws.user.colour };
     } else if (postObject.type === 'postNotification') {
       postObject.type = 'incomingNotification';
     }
@@ -63,9 +60,7 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     console.log('Client disconnected')
 
-    userCount--;
-    numUsersMsg.userCount = userCount;
-
+    numUsersMsg.userCount = wss.clients.size;
     wss.clients.forEach(function each(client) {
       if (client.readyState === client.OPEN) {
         client.send(JSON.stringify(numUsersMsg));
