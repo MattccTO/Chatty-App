@@ -38,7 +38,7 @@ export default class App extends Component {
 
     this.socket.addEventListener('message', (event) => {
       const newMessage = JSON.parse(event.data);
-      console.log(newMessage);
+      // console.log(newMessage);
       if (newMessage.type === 'userCountChanged') {
         this.setState({ userCount: newMessage.userCount })
       } else {
